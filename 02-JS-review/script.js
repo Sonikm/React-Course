@@ -142,7 +142,7 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
- 
+
 // || -------------------DESTRUCTURING--------------------------
 const book = getBook(1);
 // const author = book.author;
@@ -169,30 +169,94 @@ updatedBook;
 console.log(updatedBook.pages);
 
 // Original object is not modified
-console.log(book.pages)
+console.log(book.pages);
 
 // ||------------------ TEMPLATE LITRAIL----------------------------
 const summary = `${title}, a ${pages}-page long book, was written by ${author} and published in ${publicationDate}`;
-console.log(summary)
+console.log(summary);
 
 // ||-------------TERNARIES INSTEAD OF IF/ELSE STATEMENT----------------------
 const pageResult = pages > 1000 ? "Over a thousand" : "Less than thousand";
-pageResult
+pageResult;
 
-console.log(20 > 15 ? true : false)
-console.log(20 < 15 ? true : false)
+console.log(20 > 15 ? true : false);
+console.log(20 < 15 ? true : false);
 
 // || ------------------ARRAOW FUNCTION-------------------------------
 
-console.log(publicationDate)
-function getYear(year){
-  return year.split('-')[0]
+console.log(publicationDate);
+function getYear(year) {
+  return year.split("-")[0];
 }
 // console.log(publicationDate.split('-')[0]);
-console.log(getYear(publicationDate))
+console.log(getYear(publicationDate));
 
-const getYear2 = (str) => str.split('-')[0];
+const getYear2 = (str) => str.split("-")[0];
 console.log(getYear2(publicationDate));
 
 // || -------------SHORT-CIRCUITING AND LOGICAL OPERATORS: &&, ||, ??---------------
 
+console.log(true && "Second Value");
+console.log(false && "Second value");
+console.log(book.hasMovieAdaptation && "This book has a movie");
+
+// falsy value: 0, null, undefined
+console.log(0 && "soni");
+console.log(null && "soni");
+console.log(undefined && "soni");
+
+// Truthy value: name
+console.log("soni");
+
+console.log(true || false);
+console.log(false || "Some string");
+
+console.log(book.translations.spanish || "NOT TRANSLATED");
+
+console.log(book.reviews.goodreads.reviewsCount || "value is not found");
+
+const count = book.reviews.librarything.reviewsCount ?? "no data";
+
+// will return 0
+count;
+
+// ||------------------- OPTIONAL CHAINING-----------------
+
+
+function getTotalReviewCount(book2) {
+  const goodreads = book2.reviews?.goodreads?.reviewsCount;
+  const librarything = book2.reviews.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+const book2 = getBook(3);
+console.log(getTotalReviewCount(book2));
+
+
+// ||---------------MAP METHOD--------------------------------
+const books = getBooks();
+books
+
+const x = [1,2,3,4,5].map(el => el*2);
+console.log(x);
+
+const titles = books.map(book => book.title);
+titles;
+
+const essentialData = books.map((book) => {
+  return {
+    title : book.title,
+    author: book.author,
+    review: book.reviews
+  }
+})
+
+console.log(essentialData);
+
+// ||-------------------FILTER METHOD---------------------------------
+const longBook = books.filter((book) => book.pages > 500);
+console.log(longBook);
+
+const spanishBooks = books.filter((book) => book.translations.spanish)
+console.log(spanishBooks)
+spanishBooks.forEach(e => console.log(e.translations.spanish))
