@@ -66,7 +66,7 @@ const data = [
     publicationDate: "1965-01-01",
     author: "Frank Herbert",
     genres: ["science fiction", "novel", "adventure"],
-    hasMovieAdaptation: true,
+    hasMovieAdaptation: false,
     pages: 658,
     translations: {
       spanish: "",
@@ -183,7 +183,6 @@ console.log(20 > 15 ? true : false);
 console.log(20 < 15 ? true : false);
 
 // || ------------------ARRAOW FUNCTION-------------------------------
-
 console.log(publicationDate);
 function getYear(year) {
   return year.split("-")[0];
@@ -221,8 +220,6 @@ const count = book.reviews.librarything.reviewsCount ?? "no data";
 count;
 
 // ||------------------- OPTIONAL CHAINING-----------------
-
-
 function getTotalReviewCount(book2) {
   const goodreads = book2.reviews?.goodreads?.reviewsCount;
   const librarything = book2.reviews.librarything?.reviewsCount ?? 0;
@@ -232,31 +229,103 @@ function getTotalReviewCount(book2) {
 const book2 = getBook(3);
 console.log(getTotalReviewCount(book2));
 
-
 // ||---------------MAP METHOD--------------------------------
 const books = getBooks();
-books
+books;
 
-const x = [1,2,3,4,5].map(el => el*2);
+const x = [1, 2, 3, 4, 5].map((el) => el * 2);
 console.log(x);
 
-const titles = books.map(book => book.title);
+const titles = books.map((book) => book.title);
 titles;
 
 const essentialData = books.map((book) => {
   return {
-    title : book.title,
+    title: book.title,
     author: book.author,
-    review: book.reviews
-  }
-})
+    review: book.reviews,
+  };
+});
 
 console.log(essentialData);
 
 // ||-------------------FILTER METHOD---------------------------------
-const longBook = books.filter((book) => book.pages > 500);
-console.log(longBook);
+const longBookWithMovie = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+console.log(longBookWithMovie);
 
-const spanishBooks = books.filter((book) => book.translations.spanish)
-console.log(spanishBooks)
-spanishBooks.forEach(e => console.log(e.translations.spanish))
+const spanishBooks = books.filter((book) => book.translations.spanish);
+console.log(spanishBooks);
+spanishBooks.forEach((e) => console.log(e.translations.spanish));
+
+const adventureBooks = books
+  .filter((book) => book.genres.includes("adventure"))
+  .map((book) => [book.id, book.title, book.author]);
+
+console.log(...adventureBooks);
+
+// ||---------------------------REDUCE MATHOB------------------------------------------------------------
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+console.log(pagesAllBooks);
+
+// ||--------------------------SORT METHOD--------------------------------
+const numArr = [3, 4, 6, 7, 4, 1, 5, 8];
+
+const reversed = numArr.reverse();
+console.log(reversed);
+
+// const sorted = numArr.sort((a, b) => a - b);
+// const sorted = numArr.sort();
+const sorted = numArr.slice().sort();
+console.log(sorted);
+console.log(numArr);
+
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages);
+console.log(sortedByPages);
+
+// ||-----------------------IMMUTABLE ARRAYS-------------------------
+
+// 1) Add book object to array
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Sectrets",
+  author: "J. K. Rowling",
+};
+
+const booksAfterAdd = [...books, newBook];
+console.log(booksAfterAdd);
+
+// 2) Delete book object from array
+const bookAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+console.log(bookAfterDelete);
+
+// 3) Update book object in the arry
+const bookAfterUpdate = bookAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 1, author: "Soni K." } : book
+);
+console.log(bookAfterUpdate);
+
+// ||---------------ASYNCHRONOUS JS: PROMISES----------------------------
+// console.log("Wait till the data fetch");
+
+// fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
+// console.log("Wait till the data fetch");
+
+// ||------------------ASYNC/AWAIT-----------------------------------
+console.log("Before fetching..........");
+
+async function getData() {
+  const data = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const res = await data.json();
+
+  // console.log(res);
+  return res;
+}
+
+const fetchData = getData();
+console.log(fetchData);
+console.log("After fetching.................");
