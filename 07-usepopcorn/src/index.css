@@ -197,7 +197,7 @@ body {
   position: absolute;
   right: 2.4rem;
 
-  height: 1.8rem;
+  height: 2.5rem;
   aspect-ratio: 1;
   border-radius: 50%;
   border: none;
@@ -207,6 +207,9 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
+  text-align: center;
+  font-weight: 800;
+  font-size: 18px;
 }
 
 .btn-delete:hover {

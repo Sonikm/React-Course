@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-// import './index.css';
-// import App from './App';
+import './index.css';
+import App from './App';
 import StarRating from './StarRating';
 
 function Test() {
@@ -18,12 +18,11 @@ function Test() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <StarRating maxRating={5} size={48} color={"#fcc419"} className={"test"} messages={["Terrible","Bad", "Okay", "Good", "Amazing"]} defaultRating={3}/>
-    <Test/>
-    {/* <StarRating size={28} color={"red"} />
-    <StarRating size={18} color={"green"} /> */}
-  </React.StrictMode>
+    <App />
+    {/* <Test /> */}
+    {/* <StarRating /> */}
+
+ </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

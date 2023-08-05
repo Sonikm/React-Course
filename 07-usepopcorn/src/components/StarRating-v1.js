@@ -20,6 +20,7 @@ StarRating.prototype = {
   className : PropTypes.string,
   messages : PropTypes.array ,
   defaultRating : PropTypes.number,
+  onSetMovieRating : PropTypes.func
 }
 
 
@@ -30,7 +31,7 @@ export default function StarRating({
   className = "",
   messages = [],
   defaultRating = 0,
-  onSetRating,
+  onSetMovieRating,
 }) {
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
@@ -43,8 +44,8 @@ export default function StarRating({
   };
 
   function handleRating(rating) {
+    onSetMovieRating(rating + 1);
     setRating(rating + 1);
-    onSetRating(rating + 1);
   }
 
   return (
@@ -62,13 +63,11 @@ export default function StarRating({
           />
         ))}
       </div>
+      {/* <p style={textStyle}> {tempRating || rating || ""} </p> */}
       <p style={textStyle}>
-        {
-          tempRating ? tempRating : !rating ? "" : rating
-        }
-        {/* {messages.length === maxRating
+        {messages.length === maxRating
           ? messages[tempRating ? tempRating - 1 : rating - 1]
-          : messages[rating - 1]} */}
+          : messages[rating - 1]}
       </p>
     </div>
   );
