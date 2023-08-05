@@ -6,6 +6,7 @@ import WatchedMoviesList from "./components/WatchedMoviesList";
 import NavBar, { Search, NavResult } from "./components/NavBar";
 import WatchedSummary from "./components/WatchedSummary";
 import MoviesList from "./components/MoviesList";
+import Main, { Box } from "./components/Main";
 
 const API = "bcec72de";
 
@@ -118,24 +119,5 @@ export default function App() {
         </Box>
       </Main>
     </>
-  );
-}
-
-// Structural Components
-function Main({ children }) {
-  return <main className="main">{children}</main>;
-}
-
-// State full Components
-function Box({ children }) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  return (
-    <div className="box">
-      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
-        {isOpen ? "–" : "+"}
-      </button>
-      {isOpen && children}
-    </div>
   );
 }
